@@ -1,13 +1,15 @@
 <template>
     <div class="container">
-        <h2 class="text-center mt-5 mb-5">My Vue Todo App</h2>
+        <h2 class="text-center mt-5 mb-5">My Simple To-do App</h2>
         <div class="row">
+            <!-- Input -->
             <div class="col-4 d-flex justify-content-center align-items-start" >
                 <div class="d-flex gap-3">
                     <input v-model="task" type="text" class="form-control" placeholder="Enter task"/>
                     <button @click="submitTask" class="btn btn-info">Submit</button>
                 </div>
             </div>
+            <!-- Task table -->
             <div class="col-6">
                 <table class="table table-bordered">
                     <thead>
@@ -32,7 +34,7 @@
                                     {
                                         'text-danger': task.status === 'to-do',
                                         'text-warning': task.status === 'in-progress',
-                                        'text-success': task.status === 'finished'
+                                        'text-white': task.status === 'finished'
                                     }">
                                     {{ firstCharUpper(task.status) }}
                                 </span>
@@ -53,8 +55,6 @@
 
             </div>
         </div>
-        <!-- Input -->
-        <!-- Task table -->
     </div>
 </template>
 
@@ -66,16 +66,7 @@ export default {
             task: '',
             editedTask: null,
             availableStatus: ['to-do', 'in-progress', 'finished'],
-            tasks: [
-                {
-                    name: 'Steal bananas from the store',
-                    status: 'to-do'
-                },
-                {
-                    name: 'Eat one chocolate in one hour',
-                    status: 'in-progress'
-                }
-            ]
+            tasks: []
         }
     },
     created() {
@@ -120,6 +111,7 @@ export default {
 </script>
 
 <style scoped>
+
 .pointer {
     cursor: pointer;
 }
