@@ -3,56 +3,62 @@
         <h2 class="text-center mt-5 mb-5">My Simple To-do App</h2>
         <div class="row">
             <!-- Input -->
-            <div class="col-4 d-flex justify-content-center align-items-start" >
+            <div class="col-sm d-flex justify-content-center align-items-start" >
                 <div class="d-flex gap-3">
-                    <input v-model="task" type="text" class="form-control" placeholder="Enter task"/>
-                    <button @click="submitTask" class="btn btn-info">Submit</button>
+                    <input 
+                        v-model="task"
+                        v-on:keyup.enter="submitTask"
+                        type="text" 
+                        class="form-control" 
+                        placeholder="Enter task"/>
+                    <button @click="submitTask" class="btn btn-success">Submit</button>
                 </div>
             </div>
             <!-- Task table -->
-            <div class="col-6">
-                <table class="table table-bordered">
-                    <thead>
-                        <tr>
-                            <th>Task</th>
-                            <th>Status</th>
-                            <th class="text-center">#</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr v-for="(task, index) in tasks" :key="index">
-                            <td>
-                                <span :class="{'finished': task.status === 'finished'}">
-                                    {{ task.name }}
-                                </span>
-                            </td>
-                            <td class="status">
-                                <span 
-                                    class="pointer" 
-                                    @click="changeStatus(index)"
-                                    :class="
-                                    {
-                                        'text-danger': task.status === 'to-do',
-                                        'text-warning': task.status === 'in-progress',
-                                        'text-white': task.status === 'finished'
-                                    }">
-                                    {{ firstCharUpper(task.status) }}
-                                </span>
-                            </td>
-                            <td>
-                                <div class="d-flex justify-content-center gap-3">
-                                    <div class="text-center" @click="editTask(index)">
-                                        <span class="fa fa-pen"></span>
+            <div class="col-sm">
+                <div class="table-responsive-sm">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Task</th>
+                                <th>Status</th>
+                                <th class="text-center">#</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr v-for="(task, index) in tasks" :key="index">
+                                <td>
+                                    <span :class="{'finished': task.status === 'finished'}">
+                                        {{ task.name }}
+                                    </span>
+                                </td>
+                                <td class="status">
+                                    <span 
+                                        class="pointer" 
+                                        @click="changeStatus(index)"
+                                        :class="
+                                        {
+                                            'text-danger': task.status === 'to-do',
+                                            'text-warning': task.status === 'in-progress',
+                                            'text-success': task.status === 'finished'
+                                        }">
+                                        {{ firstCharUpper(task.status) }}
+                                    </span>
+                                </td>
+                                <td>
+                                    <div class="d-flex justify-content-center gap-3">
+                                        <div class="text-center" @click="editTask(index)">
+                                            <span class="fa fa-pen"></span>
+                                        </div>
+                                        <div class="text-center" @click="deleteTask(index)">
+                                            <span class="fa fa-trash"></span>
+                                        </div>
                                     </div>
-                                    <div class="text-center" @click="deleteTask(index)">
-                                        <span class="fa fa-trash"></span>
-                                    </div>
-                                </div>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
@@ -122,5 +128,11 @@ export default {
 
 .status {
     width: 120px;
+}
+
+@media screen and (max-width: 600px){
+    .row {
+        gap: 50px;
+    }
 }
 </style>
